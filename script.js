@@ -9,8 +9,22 @@ fetch("https://ca2d67fe666ae5774e30.free.beeceptor.com/api/users")
     listaDeTarefas.forEach(tarefa => {
         // Criar um nome elemento de lista para cada tarefa
         const item = document.createElement("li");
-        // Define conteudo HTML do item, incluindo descrição e botão
-        item.innerHTML = `${tarefa.descricao} <button>X</button>`
+        // Associa o ID da tarefa ao elemento HTML.
+        item.dataset.id = tarefa.id;
+        // Adiciona a descrição da tarefa
+        item.textContent = tarefa.descricao;
+
+        // Cria o botão de exclusão
+        const botaoRemover = document.createElement("button");
+        // Define o texto do botão
+        botaoRemover.textContent = "X";
+        // Adiciona o evento de clique
+        botaoRemover.addEventListener("click", () => {
+            remove(tarefa.id);
+        });
+        // Adiciona o botão ao item
+        item.appendChild(botaoRemover);
+
         // Adiciona o novo item à lista de tarefas no HTML
         tarefas.appendChild(item);
     });
@@ -35,9 +49,59 @@ document.getElementById("add").addEventListener("click", () =>{
     .then(tarefa => {
         // Criar um nome elemento de lista para cada tarefa
         const item = document.createElement("li");
-        // Define conteudo HTML do item, incluindo descrição e botão
-        item.innerHTML = `${tarefa.descricao} <button>X</button>`
+        // Associa o ID da tarefa ao elemento HTML.
+        item.dataset.id = tarefa.id;
+        // Adiciona a descrição da tarefa
+        item.textContent = tarefa.descricao;
+
+        // Cria o botão de exclusão
+        const botaoRemover = document.createElement("button");
+        // Define o texto do botão
+        botaoRemover.textContent = "X";
+        // Adiciona o evento de clique
+        botaoRemover.addEventListener("click", () => {
+            remove(tarefa.id);
+        });
+        // Adiciona o botão ao item
+        item.appendChild(botaoRemover);
+
         // Adiciona o novo item à lista de tarefas no HTML
         tarefas.appendChild(item);
     })
 })
+
+// Função responsável por remover uma tarefa da API e da interface
+function remove(id) {
+    // Faz uma requisição HTTP DELETE para excluir a tarefa pelo ID
+    fetch(`https://ca2d67fe666ae5774e30.free.beeceptor.com/api/users/${id}`, {
+        method: "DELETE"
+    })
+
+    // Recebe a resposta HTTP enviada pelo servidor
+    .then(resposta => {
+        // Verifica se a requisição não foi bem-sucedida
+        if (!resposta.ok) {
+            // Lança um erro com o status HTTP retornado
+            throw new Error(`Erro HTTP: ${resposta.status}`);
+        }
+        // Localiza no HTML o elemento <li> que possui o ID da tarefa
+        const item = document.querySelector(
+            `#listaTarefas li[data-id="${id}"]`
+        );
+
+        // Remove o elemento da interface, caso ele exista
+        item?.remove();
+
+        // Exibe uma mensagem de sucesso no console
+        console.log("Tarefa removida com sucesso!");
+    })
+
+    // Captura erros de rede ou erros lançados durante a execução
+    .catch(erro => {
+        // Exibe os detalhes do erro no console
+        console.error("Erro ao remover tarefa:", erro);
+
+        // Informa ao usuário que a exclusão não foi concluída
+        alert("Não foi possível remover a tarefa.");
+    });
+}
