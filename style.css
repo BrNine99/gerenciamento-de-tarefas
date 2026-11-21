@@ -1,0 +1,123 @@
+
+/* Configurações gerais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilização do corpo da página */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f6f9;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Container principal */
+main {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 500px;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Título */
+h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #333333;
+}
+
+/* Formulário de cadastro */
+form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+/* Campo de digitação */
+#tarefa {
+    flex: 1;
+    min-width: 0;
+    padding: 12px;
+    border: 1px solid #cccccc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+/* Destaque ao selecionar o input */
+#tarefa:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+/* Botão adicionar */
+#add {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* Efeito ao passar o mouse */
+#add:hover {
+    background-color: #0056b3;
+}
+
+/* Lista de tarefas */
+#listaTarefas {
+    list-style: none;
+}
+
+/* Cada tarefa */
+#listaTarefas li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    background-color: #f8f9fa;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    color: #333333;
+    overflow-wrap: anywhere;
+}
+
+/* Botão remover */
+#listaTarefas button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 7px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+/* Efeito ao passar o mouse */
+#listaTarefas button:hover {
+    background-color: #b02a37;
+}
+
+/* Ajustes para telas pequenas */
+@media (max-width: 480px) {
+    main {
+        padding: 20px;
+    }
+
+    form {
+        flex-direction: column;
+    }
+
+    #add {
+        width: 100%;
+    }
+}
